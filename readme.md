@@ -1,4 +1,4 @@
-# Open PDF files in Ionic 6 with File Opener Plugin
+# Open PDF files in Ionic 6 Angular with File Opener Plugin
 # File
 [![npm version](https://badge.fury.io/js/%40awesome-cordova-plugins%2Ffile.svg)](https://badge.fury.io/js/%40awesome-cordova-plugins%2Ffile)
 
@@ -42,12 +42,36 @@ this.fileOpener.open('file:///storage/emulated/0/Download/1.pdf', 'application/p
 ```
 
 # Bug Report: 
-    
+
+## Error: NullInjectorError: No provider for FileOpener!
+
+```bash	
+Error: Uncaught (in promise): NullInjectorError: R3InjectorError(FolderPageModule)[FileOpener -> FileOpener -> FileOpener -> FileOpener]: 
+  NullInjectorError: No provider for FileOpener!
+```
+
+## Solution: add FileOpener to providers in app.module.ts
+
+```typescript
+import { FileOpener } from '@awesome-cordova-plugins/file-opener/ngx';
+
+@NgModule({
+  ...
+  providers: [
+    FileOpener,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+  ],
+  ...
+}) 
+export class AppModule {}
+```
+
+## Error: package android.support.v4.content does not exist
 ```bash
 error: package android.support.v4.content does not exist
 ```
-Install jetifier to fix this issue
 
+## Solution: Install jetifier to fix this issue
 
 # Jetifier
 [![npm version](https://badge.fury.io/js/jetifier.svg)](https://badge.fury.io/js/jetifier)
@@ -59,6 +83,3 @@ Jetifier is a tool that helps migrating AndroidX dependencies in your project. I
 npm install jetifier --save-dev
 npx jetify
 ```
-
-
-
